@@ -1,0 +1,11 @@
+.Weather{
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.Weather h1{
+    text-transform: uppercase;
+    color: white;
+    font-size: 24px;
+}
