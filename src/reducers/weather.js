@@ -1,13 +1,15 @@
 import {
-  GET_LOCATION,
-  GET_ZIP,
+  SET_YOUR_LOCATION,
+  SET_OTHER_LOCATION,
   INPUT_CHANGE,
-  GET_WEATHER,
-} from '../actions/actionTypes';
+  SET_WEATHER,
+  SET_COORD,
+} from '../Constants/actions';
 
 const initialState = {
-  location: null,
-  zip: null,
+  coord: null,
+  yourLocation: null,
+  otherLocation: null,
   weatherData: null,
   inputValue: null,
 
@@ -15,20 +17,23 @@ const initialState = {
 
 export default function weatherReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_LOCATION:
+    case SET_YOUR_LOCATION:
       return {
-        ...state, location: action.location,
+        ...state, yourLocation: action.yourLocation,
       };
-    case GET_ZIP:
+    case SET_OTHER_LOCATION:
       return {
-        ...state, zip: action.zip,
+        ...state, otherLocation: action.otherLocation,
       };
-
+    case SET_COORD:
+      return {
+        ...state, coord: action.coord,
+      };
     case INPUT_CHANGE:
       return {
         ...state, inputValue: action.inputValue,
       };
-    case GET_WEATHER:
+    case SET_WEATHER:
       return {
         ...state, weatherData: action.weather,
       };

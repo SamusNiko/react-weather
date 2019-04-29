@@ -1,25 +1,16 @@
-.Location{
+.location{
     padding-left: 20%;
     text-align: left;
     color: white;
 }
-
-.Location input{
-    width: 20%;
+.location-coord p{
     margin-left: 5px;
-    border: 0px;
-    border-radius: 2px;
+    font-size: 12px;
+    line-height: 4px;
 }
-.Location button{
-    margin-left: 5px;
-    border: 1px;
-    border-radius: 2px;
-    background: rgb(252, 83, 83)
-}
-.currentLocation{
-    display: inline;
+.current-location p{
     margin-left: 5px;
     text-transform: uppercase;
-    font-weight: bold;
-    font-size: 15px;
+    font-size: 12px;
+    line-height: 4px;
 }

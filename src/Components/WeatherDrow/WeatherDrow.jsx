@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './WeatherDrow.css';
 
 const WeatherDrow = (props) => {
@@ -8,7 +9,7 @@ const WeatherDrow = (props) => {
   const weather = weatherData.weather[0];
   const iconUrl = `http://openweathermap.org/img/w/${weather.icon}.png`;
   return (
-    <div className="WeatherDrow">
+    <div className="weather-drow">
       <div>
         <h2>
           {weather.main} in {weatherData.name}

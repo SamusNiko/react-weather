@@ -1,36 +1,39 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './Location.css';
 
 const Location = (props) => {
-  const { location, onChange, putButton } = props;
+  const {
+    address,
+    coord,
+  } = props;
   return (
-    <div className="Location">
-      <div>
-            Location:
-        <p className="currentLocation">{location}</p>
+    <div className="location">
+      <div className="current-location">
+        <b>Your Location:</b>
+        <p>City: {address.city}</p>
+        <p>Country: {address.country}</p>
+        <p>Street: {address.road}</p>
       </div>
-      <div>
-          Enter city:
-        <input className="Location_Input" type="text" onChange={onChange} />
-        <button type="button" onClick={putButton}>
-            Apply
-        </button>
+      <div className="location-coord">
+        <b>Coordinate:</b>
+        <p>Lat: {coord.lat}</p>
+        <p>Lon: {coord.lon}</p>
       </div>
     </div>
   );
 };
 
 Location.propTypes = {
-  location: PropTypes.string,
-  onChange: PropTypes.func,
-  putButton: PropTypes.func,
+  address: PropTypes.objectOf(PropTypes.any),
+  coord: PropTypes.objectOf(PropTypes.any),
 };
 
 Location.defaultProps = {
-  location: '',
-  onChange: undefined,
-  putButton: undefined,
+  address: null,
+  coord: null,
 };
 
 export default Location;
