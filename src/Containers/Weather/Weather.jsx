@@ -62,7 +62,6 @@ class Weather extends Component {
           ? <div>No data. Please enter city</div>
           : (
             <WeatherDrow
-              location={yourLocation}
               weatherData={weatherData}
             />
           )}

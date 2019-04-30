@@ -1,6 +1,5 @@
 import {
   SET_YOUR_LOCATION,
-  SET_OTHER_LOCATION,
   INPUT_CHANGE,
   SET_WEATHER,
   SET_COORD,
@@ -9,7 +8,6 @@ import {
 const initialState = {
   coord: null,
   yourLocation: null,
-  otherLocation: null,
   weatherData: null,
   inputValue: null,
 
@@ -20,10 +18,6 @@ export default function weatherReducer(state = initialState, action) {
     case SET_YOUR_LOCATION:
       return {
         ...state, yourLocation: action.yourLocation,
-      };
-    case SET_OTHER_LOCATION:
-      return {
-        ...state, otherLocation: action.otherLocation,
       };
     case SET_COORD:
       return {

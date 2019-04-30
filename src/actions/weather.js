@@ -1,7 +1,6 @@
 import {
   SET_COORD,
   SET_YOUR_LOCATION,
-  SET_OTHER_LOCATION,
   INPUT_CHANGE,
   SET_WEATHER,
 } from '@Constants/actions';
@@ -17,12 +16,6 @@ export function setYourLocation(yourLocation) {
   return {
     type: SET_YOUR_LOCATION,
     yourLocation,
-  };
-}
-export function setOtherLocation(otherLocation) {
-  return {
-    type: SET_OTHER_LOCATION,
-    otherLocation,
   };
 }
 
@@ -80,7 +73,6 @@ export function putButton(newLocation) {
       .then((res) => {
         if (res.ok) {
           res.json().then((data) => {
-            dispatch(setOtherLocation(newLocation));
             dispatch(setWeather(data));
           });
         } else {
