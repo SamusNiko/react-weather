@@ -8,21 +8,21 @@ import {
 export function inputChange(inputValue) {
   return {
     type: INPUT_CHANGE,
-    inputValue,
+    payload: inputValue,
   };
 }
 
 export function setYourLocation(yourLocation) {
   return {
     type: SET_YOUR_LOCATION,
-    yourLocation,
+    payload: yourLocation,
   };
 }
 
 export function setWeather(weather) {
   return {
     type: SET_WEATHER,
-    weather,
+    payload: weather,
   };
 }
 
@@ -30,7 +30,7 @@ export function setCoord(lat, lon) {
   const newCoord = { lat: lat.toFixed(8), lon: lon.toFixed(8) };
   return {
     type: SET_COORD,
-    coord: newCoord,
+    payload: newCoord,
   };
 }
 

@@ -17,19 +17,19 @@ export default function weatherReducer(state = initialState, action) {
   switch (action.type) {
     case SET_YOUR_LOCATION:
       return {
-        ...state, yourLocation: action.yourLocation,
+        ...state, yourLocation: action.payload,
       };
     case SET_COORD:
       return {
-        ...state, coord: action.coord,
+        ...state, coord: action.payload,
       };
     case INPUT_CHANGE:
       return {
-        ...state, inputValue: action.inputValue,
+        ...state, inputValue: action.payload,
       };
     case SET_WEATHER:
       return {
-        ...state, weatherData: action.weather,
+        ...state, weatherData: action.payload,
       };
     default:
       return state;
