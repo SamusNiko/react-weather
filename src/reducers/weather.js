@@ -4,7 +4,7 @@ import {
   INPUT_CHANGE,
   SET_WEATHER,
   SET_COORD,
-} from '../Constants/actions';
+} from '@Constants/actions';
 
 const initialState = {
   coord: null,

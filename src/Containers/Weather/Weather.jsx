@@ -3,16 +3,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import InputCity from '../../Components/InputCity/InputCity';
-import WeatherDrow from '../../Components/WeatherDrow/WeatherDrow';
-import Location from '../../Components/Location/Location';
+import InputCity from '@Components/InputCity/InputCity';
+import WeatherDrow from '@Components/WeatherDrow/WeatherDrow';
+import Location from '@Components/Location/Location';
 import {
   getCoord,
   getYourLocation,
   getWeather,
   inputChange,
   putButton,
-} from '../../actions/weather';
+} from '@actions/weather';
 
 import './Weather.css';
 

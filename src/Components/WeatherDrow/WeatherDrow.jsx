@@ -16,7 +16,7 @@ const WeatherDrow = (props) => {
           <img src={iconUrl} alt={weatherData.description} />
         </h2>
         <p>
-          Current Temperatur:{weatherData.main.temp}°
+          Current Temperatur: {weatherData.main.temp}°
         </p>
         <p>
           High: {weatherData.main.temp_max}°
