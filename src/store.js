@@ -1,9 +1,11 @@
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 
-import rootReducer from '@reducers/rootReducer';
+import weatherReducer from '@reducers/weather';
 
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(weatherReducer, applyMiddleware(thunk));
+
+store.subscribe(() => console.log(store.getState()));
 
 export default store;

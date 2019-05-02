@@ -1,15 +1,15 @@
-.input-city{
+.city-input{
   padding: 7px 0 7px 20%;
   text-align: left;
   color: white;
 }
-.input-city input{
+.city-input input{
   width: 20%;
   margin-left: 5px;
   border: 0px;
   border-radius: 2px;
 }
-.input-city button{
+.city-input button{
   margin-left: 5px;
   border: 1px;
   border-radius: 2px;

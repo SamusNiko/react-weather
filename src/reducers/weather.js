@@ -1,33 +1,22 @@
-import {
-  SET_YOUR_LOCATION,
-  INPUT_CHANGE,
-  SET_WEATHER,
-  SET_COORD,
-} from '@Constants/actions';
+import actionConst from '@constants/actions';
 
 const initialState = {
-  coord: null,
-  yourLocation: null,
-  weatherData: null,
-  inputValue: null,
-
+  coordinates: {},
+  userLocation: {},
+  weatherData: {},
 };
 
 export default function weatherReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_YOUR_LOCATION:
+    case actionConst.SET_USER_LOCATION:
       return {
-        ...state, yourLocation: action.payload,
+        ...state, userLocation: action.payload,
       };
-    case SET_COORD:
+    case actionConst.SET_COORDINATES:
       return {
-        ...state, coord: action.payload,
+        ...state, coordinates: action.payload,
       };
-    case INPUT_CHANGE:
-      return {
-        ...state, inputValue: action.payload,
-      };
-    case SET_WEATHER:
+    case actionConst.SET_WEATHER:
       return {
         ...state, weatherData: action.payload,
       };

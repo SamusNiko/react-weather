@@ -1,67 +1,81 @@
-/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import InputCity from '@Components/InputCity/InputCity';
-import WeatherDrow from '@Components/WeatherDrow/WeatherDrow';
-import Location from '@Components/Location/Location';
+import CityInput from '@components/cityInput/index';
+import DrawWeather from '@components/drawWeather/index';
+import CurrentLocation from '@components/currentLocation/index';
 import {
-  getCoord,
-  getYourLocation,
+  getCoordinates,
+  getUserLocation,
   getWeather,
-  inputChange,
-  putButton,
+  onButtonClick,
 } from '@actions/weather';
 
 import './Weather.css';
 
 class Weather extends Component {
-  componentDidMount() {
-    const { getCoord, coord } = this.props;
-    if (coord === null) getCoord();
+  constructor() {
+    super();
+    this.state = {
+      inputValue: '',
+    };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
+    const { getCoordinates, coordinates } = this.props;
+    if (Object.keys(coordinates).length === 0) getCoordinates();
+  }
+
+  componentDidUpdate() {
     const {
-      getYourLocation,
-      getWeather,
-      coord,
-      yourLocation,
+      coordinates,
       weatherData,
-    } = nextProps;
-    if (coord !== null && yourLocation === null) getYourLocation(coord);
-    if (weatherData === null && yourLocation !== null) getWeather(yourLocation.city);
+      userLocation,
+      getUserLocation,
+      getWeather,
+    } = this.props;
+    if (Object.keys(coordinates).length !== 0 && Object.keys(userLocation).length === 0) {
+      getUserLocation(coordinates);
+    }
+    if (Object.keys(weatherData).length === 0 && Object.keys(userLocation).length !== 0) {
+      getWeather(userLocation.city);
+    }
+  }
+
+  inputChange(value) {
+    this.setState({ inputValue: value });
   }
 
   render() {
     const {
-      coord,
+      coordinates,
       weatherData,
-      yourLocation,
-      inputChange,
-      putButton,
-      inputValue,
+      userLocation,
+      onButtonClick,
     } = this.props;
+    const { inputValue } = this.state;
+
     return (
       <div className="weather">
         <h1>Weather</h1>
-        {!yourLocation
-          ? <div>Sorry, your location is not defined</div>
-          : (
-            <Location
-              coord={coord}
-              address={yourLocation}
+        {Object.keys(userLocation).length !== 0
+          ? (
+            <CurrentLocation
+              coordinates={coordinates}
+              address={userLocation}
             />
-          )}
-        <InputCity
-          onChange={event => inputChange(event.target.value)}
-          putButton={() => putButton(inputValue)}
+          )
+          : null
+        }
+        <CityInput
+          onChange={event => this.inputChange(event.target.value)}
+          onButtonClick={() => onButtonClick(inputValue)}
         />
-        {!weatherData
+        {Object.keys(weatherData).length === 0
           ? <div>No data. Please enter city</div>
           : (
-            <WeatherDrow
+            <DrawWeather
               weatherData={weatherData}
             />
           )}
@@ -71,44 +85,44 @@ class Weather extends Component {
 }
 
 Weather.propTypes = {
-  weatherData: PropTypes.objectOf(PropTypes.any),
-  yourLocation: PropTypes.objectOf(PropTypes.any),
-  coord: PropTypes.objectOf(PropTypes.any),
-  inputChange: PropTypes.func,
-  putButton: PropTypes.func,
-  inputValue: PropTypes.string,
-  getYourLocation: PropTypes.func,
-  getCoord: PropTypes.func,
+  weatherData: PropTypes.shape({
+    name: PropTypes.string,
+    main: PropTypes.object,
+    weather: PropTypes.array,
+    wind: PropTypes.object,
+  }),
+  userLocation: PropTypes.objectOf(PropTypes.string),
+  coordinates: PropTypes.objectOf(PropTypes.string),
+  onButtonClick: PropTypes.func,
+  getUserLocation: PropTypes.func,
+  getCoordinates: PropTypes.func,
   getWeather: PropTypes.func,
 };
+
 Weather.defaultProps = {
-  weatherData: null,
-  yourLocation: null,
-  coord: null,
-  inputChange: undefined,
-  putButton: undefined,
-  inputValue: null,
-  getYourLocation: undefined,
-  getCoord: undefined,
+  weatherData: {},
+  userLocation: {},
+  coordinates: {},
+  onButtonClick: undefined,
+  getUserLocation: undefined,
+  getCoordinates: undefined,
   getWeather: undefined,
 };
 
 function mapStateToProps(state) {
   return {
-    coord: state.weather.coord,
-    yourLocation: state.weather.yourLocation,
-    weatherData: state.weather.weatherData,
-    inputValue: state.weather.inputValue,
+    coordinates: state.coordinates,
+    userLocation: state.userLocation,
+    weatherData: state.weatherData,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCoord: () => dispatch(getCoord()),
-    getYourLocation: coord => dispatch(getYourLocation(coord)),
-    getWeather: yourlocation => dispatch(getWeather(yourlocation)),
-    inputChange: location => dispatch(inputChange(location)),
-    putButton: inputValue => dispatch(putButton(inputValue)),
+    getCoordinates: () => dispatch(getCoordinates()),
+    getUserLocation: coordinates => dispatch(getUserLocation(coordinates)),
+    getWeather: userLocation => dispatch(getWeather(userLocation)),
+    onButtonClick: inputValue => dispatch(onButtonClick(inputValue)),
   };
 }
 

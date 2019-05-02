@@ -5,9 +5,9 @@ const path = require('path');
 
 module.exports = function override(config, env) {
   config = rewireAliases.aliasesOptions({
-    '@Components': path.resolve(__dirname, `${paths.appSrc}/Components/`),
+    '@components': path.resolve(__dirname, `${paths.appSrc}/components/`),
     '@actions': path.resolve(__dirname, `${paths.appSrc}/actions/`),
-    '@Constants': path.resolve(__dirname, `${paths.appSrc}/Constants/`),
+    '@constants': path.resolve(__dirname, `${paths.appSrc}/constants/`),
     '@Containers': path.resolve(__dirname, `${paths.appSrc}/Containers/`),
     '@reducers': path.resolve(__dirname, `${paths.appSrc}/reducers/`),
   })(config, env);
