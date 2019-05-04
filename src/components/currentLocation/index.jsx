@@ -1,8 +1,14 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import './styles.css';
+
+const checkObjectProperty = (obj, key) => {
+  if (obj[key] !== undefined) {
+    return (<p key={key}>{key}: {obj[key]}</p>);
+  }
+  return null;
+};
 
 const CurrentLocation = (props) => {
   const {
@@ -11,24 +17,36 @@ const CurrentLocation = (props) => {
   } = props;
   return (
     <div className="location">
-      <div className="current-location">
-        <b>Your Location:</b>
-        <p>City: {address.city}</p>
-        <p>Country: {address.country}</p>
-        <p>Street: {address.road}</p>
-      </div>
-      <div className="location-coordinates">
-        <b>Coordinates:</b>
-        <p>Lat: {coordinates.lat}</p>
-        <p>Lon: {coordinates.lon}</p>
-      </div>
+      {Object.keys(address).length !== 0
+        ? (
+          <div className="current-location">
+            <b>Your Location:</b>
+            {Object.keys(address).map(key => checkObjectProperty(address, key))}
+          </div>
+        )
+        : null}
+      {Object.keys(coordinates).length !== 0
+        ? (
+          <div className="location-coordinates">
+            <b>Coordinates:</b>
+            {Object.keys(coordinates).map(key => checkObjectProperty(coordinates, key))}
+          </div>
+        )
+        : null}
     </div>
   );
 };
 
 CurrentLocation.propTypes = {
-  address: PropTypes.objectOf(PropTypes.string),
-  coordinates: PropTypes.objectOf(PropTypes.string),
+  address: PropTypes.shape({
+    city: PropTypes.string,
+    country: PropTypes.string,
+    street: PropTypes.string,
+  }),
+  coordinates: PropTypes.shape({
+    lat: PropTypes.string,
+    lon: PropTypes.string,
+  }),
 };
 
 CurrentLocation.defaultProps = {

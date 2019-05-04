@@ -6,13 +6,13 @@ import './styles.css';
 const CityInput = (props) => {
   const {
     onChange,
-    onButtonClick,
+    onClick,
   } = props;
   return (
     <div className="city-input">
       Enter city:
       <input type="text" onChange={onChange} />
-      <button type="button" onClick={onButtonClick}>
+      <button type="button" onClick={onClick}>
         Apply
       </button>
     </div>
@@ -21,12 +21,12 @@ const CityInput = (props) => {
 
 CityInput.propTypes = {
   onChange: PropTypes.func,
-  onButtonClick: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 CityInput.defaultProps = {
   onChange: undefined,
-  onButtonClick: undefined,
+  onClick: undefined,
 };
 
 export default CityInput;

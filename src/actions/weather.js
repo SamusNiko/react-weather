@@ -1,12 +1,13 @@
-import actionConst from '@constants/actions';
+import actionConst from '@/constants/actions';
 
 
-export function setUserLocation(yourLocation) {
+export function setUserLocation(userLocation) {
   const address = {
-    city: yourLocation.city,
-    country: yourLocation.country,
-    road: yourLocation.road,
+    country: userLocation.country,
+    city: userLocation.city,
+    street: userLocation.road,
   };
+
   return {
     type: actionConst.SET_USER_LOCATION,
     payload: address,
@@ -32,9 +33,13 @@ export function getUserLocation(coordinates) {
   return (dispatch) => {
     const key = process.env.REACT_APP_LOCATION_KEY;
     const { lat, lon } = coordinates;
-    const weatherURL = `https://eu1.locationiq.com/v1/reverse.php?key=${key}&lat=${lat}&lon=${lon}&format=json`;
+    const weatherURL = `https://eu1.locationiq.com/v1/reverse.php?key=${key}&lat=${lat}&lon=${lon}&normalizecity=1&format=json`;
     fetch(weatherURL)
-      .then(res => res.json().then(nextData => dispatch(setUserLocation(nextData.address))));
+      .then((res) => {
+        if (res.ok) {
+          res.json().then(data => dispatch(setUserLocation(data.address)));
+        }
+      });
   };
 }
 
@@ -47,7 +52,7 @@ export function getCoordinates() {
   };
 }
 
-export function getWeather(city) {
+export function getWeatherByCityName(city) {
   return async (dispatch) => {
     const key = process.env.REACT_APP_WEATHER_KEY;
     const weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key}&units=metric`;
@@ -60,7 +65,7 @@ export function getWeather(city) {
   };
 }
 
-export function onButtonClick(newLocation) {
+export function handleCityInputClick(newLocation) {
   return (dispatch) => {
     const key = process.env.REACT_APP_WEATHER_KEY;
     const weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${newLocation}&APPID=${key}&units=metric`;

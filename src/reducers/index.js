@@ -1,4 +1,4 @@
-import actionConst from '@constants/actions';
+import actionConst from '@/constants/actions';
 
 const initialState = {
   coordinates: {},

@@ -6,11 +6,12 @@
 .location-coordinates p{
     margin-left: 5px;
     font-size: 12px;
+    text-transform: capitalize;
     line-height: 4px;
 }
 .current-location p{
     margin-left: 5px;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 12px;
     line-height: 4px;
 }

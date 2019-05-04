@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import CityInput from '@components/cityInput/index';
-import DrawWeather from '@components/drawWeather/index';
-import CurrentLocation from '@components/currentLocation/index';
+import CityInput from '@/Components/CityInput';
+import WeatherItem from '@/Components/WeatherItem';
+import CurrentLocation from '@/Components/CurrentLocation';
 import {
   getCoordinates,
   getUserLocation,
-  getWeather,
-  onButtonClick,
-} from '@actions/weather';
+  getWeatherByCityName,
+  handleCityInputClick,
+} from '@/actions/weather';
 
-import './Weather.css';
+import './styles.css';
 
 class Weather extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       inputValue: '',
     };
@@ -33,17 +33,17 @@ class Weather extends Component {
       weatherData,
       userLocation,
       getUserLocation,
-      getWeather,
+      getWeatherByCityName,
     } = this.props;
     if (Object.keys(coordinates).length !== 0 && Object.keys(userLocation).length === 0) {
       getUserLocation(coordinates);
     }
     if (Object.keys(weatherData).length === 0 && Object.keys(userLocation).length !== 0) {
-      getWeather(userLocation.city);
+      getWeatherByCityName(userLocation.city);
     }
   }
 
-  inputChange(value) {
+  handleCityInputChange(value) {
     this.setState({ inputValue: value });
   }
 
@@ -52,30 +52,25 @@ class Weather extends Component {
       coordinates,
       weatherData,
       userLocation,
-      onButtonClick,
+      handleCityInputClick,
     } = this.props;
     const { inputValue } = this.state;
 
     return (
       <div className="weather">
         <h1>Weather</h1>
-        {Object.keys(userLocation).length !== 0
-          ? (
-            <CurrentLocation
-              coordinates={coordinates}
-              address={userLocation}
-            />
-          )
-          : null
-        }
+        <CurrentLocation
+          coordinates={coordinates}
+          address={userLocation}
+        />
         <CityInput
-          onChange={event => this.inputChange(event.target.value)}
-          onButtonClick={() => onButtonClick(inputValue)}
+          onChange={event => this.handleCityInputChange(event.target.value)}
+          onClick={() => handleCityInputClick(inputValue)}
         />
         {Object.keys(weatherData).length === 0
           ? <div>No data. Please enter city</div>
           : (
-            <DrawWeather
+            <WeatherItem
               weatherData={weatherData}
             />
           )}
@@ -91,22 +86,29 @@ Weather.propTypes = {
     weather: PropTypes.array,
     wind: PropTypes.object,
   }),
-  userLocation: PropTypes.objectOf(PropTypes.string),
-  coordinates: PropTypes.objectOf(PropTypes.string),
-  onButtonClick: PropTypes.func,
+  userLocation: PropTypes.shape({
+    city: PropTypes.string,
+    country: PropTypes.string,
+    street: PropTypes.string,
+  }),
+  coordinates: PropTypes.shape({
+    lat: PropTypes.string,
+    lon: PropTypes.string,
+  }),
+  handleCityInputClick: PropTypes.func,
   getUserLocation: PropTypes.func,
   getCoordinates: PropTypes.func,
-  getWeather: PropTypes.func,
+  getWeatherByCityName: PropTypes.func,
 };
 
 Weather.defaultProps = {
   weatherData: {},
   userLocation: {},
   coordinates: {},
-  onButtonClick: undefined,
+  handleCityInputClick: undefined,
   getUserLocation: undefined,
   getCoordinates: undefined,
-  getWeather: undefined,
+  getWeatherByCityName: undefined,
 };
 
 function mapStateToProps(state) {
@@ -121,8 +123,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getCoordinates: () => dispatch(getCoordinates()),
     getUserLocation: coordinates => dispatch(getUserLocation(coordinates)),
-    getWeather: userLocation => dispatch(getWeather(userLocation)),
-    onButtonClick: inputValue => dispatch(onButtonClick(inputValue)),
+    getWeatherByCityName: userLocation => dispatch(getWeatherByCityName(userLocation)),
+    handleCityInputClick: inputValue => dispatch(handleCityInputClick(inputValue)),
   };
 }
 

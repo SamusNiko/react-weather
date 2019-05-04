@@ -1,10 +1,9 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import './styles.css';
 
-const DrawWeather = (props) => {
+const WeatherItem = (props) => {
   const { weatherData } = props;
   const weather = weatherData.weather[0];
   const iconUrl = `http://openweathermap.org/img/w/${weather.icon}.png`;
@@ -38,7 +37,7 @@ const DrawWeather = (props) => {
   );
 };
 
-DrawWeather.propTypes = {
+WeatherItem.propTypes = {
   weatherData: PropTypes.shape({
     name: PropTypes.string,
     main: PropTypes.object,
@@ -47,8 +46,8 @@ DrawWeather.propTypes = {
   }),
 };
 
-DrawWeather.defaultProps = {
+WeatherItem.defaultProps = {
   weatherData: {},
 };
 
-export default DrawWeather;
+export default WeatherItem;
