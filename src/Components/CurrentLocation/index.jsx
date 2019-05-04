@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 const checkObjectProperty = (obj, key) => {
-  if (obj[key] !== undefined) {
+  if (obj[key]) {
     return (<p key={key}>{key}: {obj[key]}</p>);
   }
   return null;
@@ -15,26 +15,29 @@ const CurrentLocation = (props) => {
     address,
     coordinates,
   } = props;
-  return (
-    <div className="location">
-      {Object.keys(address).length !== 0
-        ? (
-          <div className="current-location">
-            <b>Your Location:</b>
-            {Object.keys(address).map(key => checkObjectProperty(address, key))}
-          </div>
-        )
-        : null}
-      {Object.keys(coordinates).length !== 0
-        ? (
-          <div className="location-coordinates">
-            <b>Coordinates:</b>
-            {Object.keys(coordinates).map(key => checkObjectProperty(coordinates, key))}
-          </div>
-        )
-        : null}
-    </div>
-  );
+  if (Object.keys(address).length || Object.keys(coordinates).length) {
+    return (
+      <div className="location">
+        {Object.keys(address).length !== 0
+          ? (
+            <div className="current-location">
+              <b>Your Location:</b>
+              {Object.keys(address).map(key => checkObjectProperty(address, key))}
+            </div>
+          )
+          : null}
+        {Object.keys(coordinates).length !== 0
+          ? (
+            <div className="location-coordinates">
+              <b>Coordinates:</b>
+              {Object.keys(coordinates).map(key => checkObjectProperty(coordinates, key))}
+            </div>
+          )
+          : null}
+      </div>
+    );
+  }
+  return null;
 };
 
 CurrentLocation.propTypes = {

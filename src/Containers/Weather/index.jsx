@@ -38,7 +38,7 @@ class Weather extends Component {
     if (Object.keys(coordinates).length !== 0 && Object.keys(userLocation).length === 0) {
       getUserLocation(coordinates);
     }
-    if (Object.keys(weatherData).length === 0 && Object.keys(userLocation).length !== 0) {
+    if (Object.keys(weatherData).length === 0 && userLocation.city) {
       getWeatherByCityName(userLocation.city);
     }
   }

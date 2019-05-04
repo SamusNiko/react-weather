@@ -4,12 +4,14 @@
     color: white;
 }
 .location-coordinates p{
+    box-sizing: border-box;
     margin-left: 5px;
     font-size: 12px;
     text-transform: capitalize;
     line-height: 4px;
 }
 .current-location p{
+    box-sizing: border-box;
     margin-left: 5px;
     text-transform: capitalize;
     font-size: 12px;
