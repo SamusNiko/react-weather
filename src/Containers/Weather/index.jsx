@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import CityInput from '@/Components/CityInput';
-import WeatherItem from '@/Components/WeatherItem';
-import CurrentLocation from '@/Components/CurrentLocation';
+import CityInput from '@/components/CityInput';
+import WeatherItem from '@/components/CityWeather';
+import CurrentLocation from '@/components/CurrentLocation';
 import {
   getCoordinates,
   getUserLocation,

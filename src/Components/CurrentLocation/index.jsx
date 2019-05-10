@@ -10,6 +10,25 @@ const checkObjectProperty = (obj, key) => {
   return null;
 };
 
+const currentLocationRender = (address) => {
+  if (address.error) {
+    return (
+      <div className="error">
+       Location Error: {address.error}
+      </div>
+    );
+  }
+  if (Object.keys(address).length !== 0) {
+    return (
+      <div className="current-location">
+        <b>Your Location:</b>
+        {Object.keys(address).map(key => checkObjectProperty(address, key))}
+      </div>
+    );
+  }
+  return null;
+};
+
 const CurrentLocation = (props) => {
   const {
     address,
@@ -18,14 +37,7 @@ const CurrentLocation = (props) => {
   if (Object.keys(address).length || Object.keys(coordinates).length) {
     return (
       <div className="location">
-        {Object.keys(address).length !== 0
-          ? (
-            <div className="current-location">
-              <b>Your Location:</b>
-              {Object.keys(address).map(key => checkObjectProperty(address, key))}
-            </div>
-          )
-          : null}
+        {currentLocationRender(address)}
         {Object.keys(coordinates).length !== 0
           ? (
             <div className="location-coordinates">
@@ -45,6 +57,7 @@ CurrentLocation.propTypes = {
     city: PropTypes.string,
     country: PropTypes.string,
     street: PropTypes.string,
+    error: PropTypes.string,
   }),
   coordinates: PropTypes.shape({
     lat: PropTypes.string,

@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
-const WeatherItem = (props) => {
+const CityWeather = (props) => {
   const { weatherData } = props;
+  if (weatherData.error) {
+    return (
+      <div className="error">
+       Error: {weatherData.error}
+      </div>
+    );
+  }
   const weather = weatherData.weather[0];
   const iconUrl = `http://openweathermap.org/img/w/${weather.icon}.png`;
   return (
-    <div className="draw-weather">
+    <div className="city-weather">
       <div>
         <h2>
           {weather.main} in {weatherData.name}
@@ -37,17 +44,18 @@ const WeatherItem = (props) => {
   );
 };
 
-WeatherItem.propTypes = {
+CityWeather.propTypes = {
   weatherData: PropTypes.shape({
     name: PropTypes.string,
     main: PropTypes.object,
     weather: PropTypes.array,
     wind: PropTypes.object,
+    error: PropTypes.string,
   }),
 };
 
-WeatherItem.defaultProps = {
+CityWeather.defaultProps = {
   weatherData: {},
 };
 
-export default WeatherItem;
+export default CityWeather;

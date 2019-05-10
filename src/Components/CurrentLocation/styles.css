@@ -1,5 +1,5 @@
 .location{
-    padding-left: 20%;
+    padding: 0 10%;
     text-align: left;
     color: white;
 }
@@ -16,4 +16,10 @@
     text-transform: capitalize;
     font-size: 12px;
     line-height: 4px;
+}
+.error{
+    border: 2px solid black;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import Weather from '@/Containers/Weather';
+import Weather from '@/containers/Weather';
 import store from './store';
 
 import './index.css';
