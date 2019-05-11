@@ -12,10 +12,12 @@ Change directories.
 Install dependencies.
 `npm install`
 
+For work correctly, you need to create `.env` file and add APIs keys. See `.env-example`. 
+
 Start localhost server.
 `npm start`
 
-Runs the app in the development mode.<br>
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
