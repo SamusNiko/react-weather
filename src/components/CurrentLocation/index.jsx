@@ -1,56 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './styles.css';
 
-const checkObjectProperty = (obj, key) => {
-  if (obj[key]) {
-    return (<p key={key}>{key}: {obj[key]}</p>);
-  }
-  return null;
-};
 
-const currentLocationRender = (address) => {
-  if (address.error) {
-    return (
-      <div className="error">
-       Location Error: {address.error}
-      </div>
-    );
+class CurrentLocation extends Component {
+  currentLocationRender(address) {
+    if (address.error) {
+      return (
+        <div className="error">
+          Location Error: {address.error}
+        </div>
+      );
+    }
+    if (Object.keys(address).length) {
+      return (
+        <div className="current-location">
+          <h3>Your Location:</h3>
+          {Object.keys(address).map(this.renderObjectProperty, address)}
+        </div>
+      );
+    }
+    return null;
   }
-  if (Object.keys(address).length !== 0) {
-    return (
-      <div className="current-location">
-        <b>Your Location:</b>
-        {Object.keys(address).map(key => checkObjectProperty(address, key))}
-      </div>
-    );
-  }
-  return null;
-};
 
-const CurrentLocation = (props) => {
-  const {
-    address,
-    coordinates,
-  } = props;
-  if (Object.keys(address).length || Object.keys(coordinates).length) {
-    return (
-      <div className="location">
-        {currentLocationRender(address)}
-        {Object.keys(coordinates).length !== 0
-          ? (
-            <div className="location-coordinates">
-              <b>Coordinates:</b>
-              {Object.keys(coordinates).map(key => checkObjectProperty(coordinates, key))}
-            </div>
-          )
-          : null}
-      </div>
-    );
+  coordinatesRender(coordinates) {
+    if (Object.keys(coordinates).length) {
+      return (
+        <div className="location-coordinates">
+          <h3>Coordinates:</h3>
+          {Object.keys(coordinates).map(this.renderObjectProperty, coordinates)}
+        </div>
+      );
+    }
+    return null;
   }
-  return null;
-};
+
+  renderObjectProperty(value) {
+    if (this[value]) {
+      return (<p key={value}>{value}: {this[value]}</p>);
+    }
+    return null;
+  }
+
+  render() {
+    const {
+      address,
+      coordinates,
+    } = this.props;
+    if (Object.keys(address).length || Object.keys(coordinates).length) {
+      return (
+        <div className="location clearfix">
+          {this.currentLocationRender(address)}
+          {this.coordinatesRender(coordinates)}
+        </div>
+      );
+    }
+    return null;
+  }
+}
 
 CurrentLocation.propTypes = {
   address: PropTypes.shape({

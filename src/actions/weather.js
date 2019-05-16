@@ -89,23 +89,3 @@ export function getWeatherByCityName(city) {
       .catch(error => console.log(error));
   };
 }
-
-export function handleCityInputClick(newLocation) {
-  return (dispatch) => {
-    const key = process.env.REACT_APP_WEATHER_KEY;
-    const weatherURL = `${WEATHER_API_URL}?q=${newLocation}&APPID=${key}&units=metric`;
-    fetch(weatherURL)
-      .then((res) => {
-        if (res.ok) {
-          res.json().then((data) => {
-            dispatch(setWeather(data));
-          });
-        } else {
-          res.json().then((data) => {
-            alert(data.message);
-          });
-        }
-      })
-      .catch(error => console.log(error));
-  };
-}

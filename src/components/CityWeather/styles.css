@@ -1,19 +1,113 @@
 .city-weather{
-    border: 1px solid rgb(58, 51, 51);
     box-sizing: border-box;
     margin-top: 20px;
-    background: rgb(85, 204, 212)
+    text-transform: uppercase;
+    font-weight: 100;
+    color: white;
 }
 .city-weather h2{
     text-transform: uppercase;
+    color: white;
+    font-weight: 100;
+    margin:10px;
 }
-.city-weather p{
+.city-weather img{
+    float: left;
+    width: 30%;
+    margin: 0 1.5%;
+}
+.current-temperatur{
+    float: left;
+    text-align: center;
+    margin: 0 1.5%;
+    font-size: 90px;
+    width: 35%;
+    line-height: 110px;
+}
+.current-temperatur p{
+    font-size: 16px;
+    margin: 0px 5px;
+    line-height: 20px;
+}
+.other-parametrs{
+    display: inline-block;
+    box-sizing: border-box;
+    padding-top: 20px;
+    width: 25%;
+    margin: 0  1.5%
+}
+.other-parametrs p{
     text-align: left;
-    font-size: 18px;
-    padding-left: 20%;
+    font-size: 16px;
+    margin: 0 5px;
+    padding-left: 10%;
+    line-height: 20px;
+}
+.clearfix:after{
+    content:'';
+    display: table;
+    width: 100%;
+    clear: both;
 }
 .error{
-    border: 2px solid black;
+    border: 1px solid white;
+    color: white;
     font-weight: bold;
     font-size: 18px;
+}
+
+@media screen and (max-width: 803px){
+    .city-weather img{
+        width: 45%;
+    }
+    .other-parametrs{
+        float: right;
+        width: 45%;
+    }
+    .current-temperatur{
+        font-size: 75px;
+        width: 45%;
+    }
+}
+@media screen and (max-width: 465px){
+    .city-weather img{
+        width: 40%;
+        margin: 0 auto -20px auto;
+    }
+    .other-parametrs{
+        float: none;
+        width: 100%;
+    }
+    .other-parametrs p{
+        padding: 0;
+    }
+    .current-temperatur{
+        display: block;
+        font-size: 60px;
+        text-align: center;
+        width: 60%;
+        margin: 0 auto;
+
+    }
+}
+@media screen and (max-width: 300px){
+    .city-weather img{
+        float: none;
+        width: 60%;
+        margin: 0 auto;
+    }
+    .other-parametrs{
+        float: none;
+        width: 100%;
+    }
+    .other-parametrs p{
+        padding: 0;
+    }
+    .current-temperatur{
+        float: none;
+        font-size: 50px;
+        width: 100%;
+        text-align: center;
+        margin: -40px 0px 0 0;
+    }
 }

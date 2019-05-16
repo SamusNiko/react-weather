@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import noop from 'react-props-noop';
 import { connect } from 'react-redux';
 
 import CityInput from '@/components/CityInput';
@@ -9,7 +10,6 @@ import {
   getCoordinates,
   getUserLocation,
   getWeatherByCityName,
-  handleCityInputClick,
 } from '@/actions/weather';
 
 import './styles.css';
@@ -20,11 +20,13 @@ class Weather extends Component {
     this.state = {
       inputValue: '',
     };
+    this.handleCityInputChange = this.handleCityInputChange.bind(this);
+    this.handleCityInputClick = this.handleCityInputClick.bind(this);
   }
 
   componentDidMount() {
     const { getCoordinates, coordinates } = this.props;
-    if (Object.keys(coordinates).length === 0) getCoordinates();
+    if (!Object.keys(coordinates).length) getCoordinates();
   }
 
   componentDidUpdate() {
@@ -35,16 +37,23 @@ class Weather extends Component {
       getUserLocation,
       getWeatherByCityName,
     } = this.props;
-    if (Object.keys(coordinates).length !== 0 && Object.keys(userLocation).length === 0) {
+    if (Object.keys(coordinates).length && !Object.keys(userLocation).length) {
       getUserLocation(coordinates);
     }
-    if (Object.keys(weatherData).length === 0 && userLocation.city) {
+    if (!Object.keys(weatherData).length && userLocation.city) {
       getWeatherByCityName(userLocation.city);
     }
   }
 
-  handleCityInputChange(value) {
-    this.setState({ inputValue: value });
+  handleCityInputChange(e) {
+    const inputValue = e.target.value;
+    this.setState({ inputValue });
+  }
+
+  handleCityInputClick() {
+    const { getWeatherByCityName } = this.props;
+    const { inputValue } = this.state;
+    getWeatherByCityName(inputValue);
   }
 
   render() {
@@ -52,9 +61,7 @@ class Weather extends Component {
       coordinates,
       weatherData,
       userLocation,
-      handleCityInputClick,
     } = this.props;
-    const { inputValue } = this.state;
 
     return (
       <div className="weather">
@@ -64,11 +71,11 @@ class Weather extends Component {
           address={userLocation}
         />
         <CityInput
-          onChange={event => this.handleCityInputChange(event.target.value)}
-          onClick={() => handleCityInputClick(inputValue)}
+          onChange={this.handleCityInputChange}
+          onClick={this.handleCityInputClick}
         />
         {Object.keys(weatherData).length === 0
-          ? <div>No data. Please enter city</div>
+          ? <div className="error">No data. Please enter city</div>
           : (
             <WeatherItem
               weatherData={weatherData}
@@ -95,7 +102,6 @@ Weather.propTypes = {
     lat: PropTypes.string,
     lon: PropTypes.string,
   }),
-  handleCityInputClick: PropTypes.func,
   getUserLocation: PropTypes.func,
   getCoordinates: PropTypes.func,
   getWeatherByCityName: PropTypes.func,
@@ -105,10 +111,9 @@ Weather.defaultProps = {
   weatherData: {},
   userLocation: {},
   coordinates: {},
-  handleCityInputClick: undefined,
-  getUserLocation: undefined,
-  getCoordinates: undefined,
-  getWeatherByCityName: undefined,
+  getUserLocation: noop,
+  getCoordinates: noop,
+  getWeatherByCityName: noop,
 };
 
 function mapStateToProps(state) {
@@ -123,8 +128,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getCoordinates: () => dispatch(getCoordinates()),
     getUserLocation: coordinates => dispatch(getUserLocation(coordinates)),
-    getWeatherByCityName: userLocation => dispatch(getWeatherByCityName(userLocation)),
-    handleCityInputClick: inputValue => dispatch(handleCityInputClick(inputValue)),
+    getWeatherByCityName: location => dispatch(getWeatherByCityName(location)),
   };
 }
 

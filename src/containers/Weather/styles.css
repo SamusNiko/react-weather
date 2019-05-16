@@ -1,8 +1,8 @@
 .weather{
     margin: 0 auto;
-    border: 2px solid black;
-    border-radius: 5px;
-    background: rgb(187, 46, 46);
+    padding: 20px;
+    height: 100%;
+    background: url(../../image/Nite.jpg) no-repeat top center;
     text-align: center;
 }
 
@@ -10,6 +10,7 @@
     text-transform: uppercase;
     color: white;
     font-size: 24px;
+    margin: 0;
 }
 
 .loading{
@@ -18,4 +19,17 @@
     font-size: 25px;
     color:white;
     background: rgb(187, 46, 46); 
+}
+.error{
+    color: white;
+    border: 1px solid white;
+    font-weight: 100;
+    font-size: 18px;
+    text-align: center;
+}
+
+@media screen and (max-width: 465px){
+    .weather{
+        padding: 10px;
+    }
 }
